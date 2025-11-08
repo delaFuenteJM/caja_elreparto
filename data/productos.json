@@ -1,0 +1,37 @@
+[
+  {
+    "nombre": "1 kg (Kilo)",
+    "precio": 14000,
+    "peso_unitario_gramos": 1000
+  },
+  {
+    "nombre": "1/2 kg (Medio Kilo)",
+    "precio": 8000,
+    "peso_unitario_gramos": 500
+  },
+  {
+    "nombre": "1/4 kg (Cuarto Kilo)",
+    "precio": 5000,
+    "peso_unitario_gramos": 250
+  },
+  {
+    "nombre": "3 Bochas",
+    "precio": 3000,
+    "peso_unitario_gramos": 150
+  },
+  {
+    "nombre": "2 Bochas",
+    "precio": 2500,
+    "peso_unitario_gramos": 100
+  },
+  {
+    "nombre": "1 Bocha",
+    "precio": 1500,
+    "peso_unitario_gramos": 50
+  },
+  {
+    "nombre": "Promo 3x2 (1/4 kg)",
+    "precio": 10000,
+    "peso_unitario_gramos": 750
+  }
+]
