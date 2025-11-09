@@ -4,7 +4,7 @@ const JSON_URL = '../data/productos.json';
 // Función principal para cargar datos y renderizar el select
 function renderizarProductos() {
     // 1. Seleccionar el elemento SELECT por su ID
-    const selectElement = document.getElementById('productos-select');
+    const selectElement = document.getElementById('products-select');
     
     // Si no se encuentra el select, salimos de la función
     if (!selectElement) {
