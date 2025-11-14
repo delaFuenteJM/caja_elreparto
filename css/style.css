@@ -7,10 +7,10 @@
 
 body{
 background-color: #FFF1CB;
-header nav {
-background-color: #C2E2FA;
 }
 
+body header nav {
+background-color: #C2E2FA;
 }
 
 .bgReparto{
