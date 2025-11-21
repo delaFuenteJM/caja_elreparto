@@ -52,3 +52,8 @@ display: block;
 header nav .active{
 color: B4DEBD;
 }
+.formStock{
+display: flex;
+background-color: #E4D4BA;
+
+}
