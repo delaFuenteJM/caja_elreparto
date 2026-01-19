@@ -52,6 +52,12 @@ function renderizarProductos() {
 }
 renderizarProductos();
 
+//seteo fecha y hora 
+const tiempo = new Date();
+const fechaLegible = tiempo.toLocaleString('es-AR');
+
+document.getElementById("timeDate").textContent = fechaLegible;
+
 Swal.fire({
   title: "<strong>HTML <u>example</u></strong>",
   icon: "info",
