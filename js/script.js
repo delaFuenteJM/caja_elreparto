@@ -1,3 +1,7 @@
+//seteo fecha y hora 
+const tiempo = new Date();
+const fechaLegible = tiempo.toLocaleString('es-AR');
+
 // Resuelve la ruta al JSON intentando usar la ubicación del propio script.
 // Si no está disponible, cae a una ruta raíz por defecto.
 const JSON_URL = (function () {
@@ -52,29 +56,118 @@ function renderizarProductos() {
 }
 renderizarProductos();
 
-//seteo fecha y hora 
-const tiempo = new Date();
-const fechaLegible = tiempo.toLocaleString('es-AR');
+// Variables de estado
+let pedidoActual = [];
+let historialVentas = [];
+
+// Elementos del DOM
+const btnAgregar = document.getElementById('btnAgregarProducto');
+const btnAceptar = document.getElementById('btnAceptarPedido');
+const listaPedido = document.getElementById('listaPedidoActual');
+const totalPedidoTxt = document.getElementById('totalPedido');
+const contenedorHistorial = document.getElementById('historialVentas');
+const selectProductos = document.getElementById('products-select');
+
+// 1. Función para agregar al carrito temporal
+btnAgregar.addEventListener('click', () => {
+    const selectedOption = selectProductos.options[selectProductos.selectedIndex];
+    
+    if (selectProductos.value === "") {
+        Swal.fire("Nota", "Por favor selecciona un gusto de helado", "info");
+        return;
+    }
+
+    // Extraemos nombre y precio (asumiendo que los guardas en el objeto o texto)
+    const nombre = selectedOption.textContent;
+    // Para este ejemplo, usaremos precios fijos o podrías sacarlos del value del select
+    const precio = 5000; // Esto es un placeholder, lo ideal es que venga de tu JSON
+
+    pedidoActual.push({ nombre, precio });
+    actualizarInterfazPedido();
+});
+
+function actualizarInterfazPedido() {
+    listaPedido.innerHTML = "";
+    let total = 0;
+
+    pedidoActual.forEach((item, index) => {
+        total += item.precio;
+        listaPedido.innerHTML += `<p>${item.nombre} - $${item.precio}</p>`;
+    });
+
+    totalPedidoTxt.innerText = total.toLocaleString('es-AR');
+}
+
+// 2. Función para "Aceptar" el pedido (Cobrar)
+btnAceptar.addEventListener('click', () => {
+    if (pedidoActual.length === 0) {
+        Swal.fire("Error", "El pedido está vacío", "error");
+        return;
+    }
+
+    Swal.fire({
+        title: '¿Confirmar cobro?',
+        text: `Total a recibir: $${totalPedidoTxt.innerText}`,
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonText: 'Recibido',
+        cancelButtonText: 'Corregir'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Mover a historial
+            const ventaFinalizada = {
+                items: [...pedidoActual],
+                total: pedidoActual.reduce((acc, el) => acc + el.total, 0), // lógica de suma
+                hora: new Date().toLocaleTimeString()
+            };
+            
+            historialVentas.push(ventaFinalizada);
+            renderizarHistorial();
+            
+            // Limpiar pedido actual
+            pedidoActual = [];
+            actualizarInterfazPedido();
+            
+            Swal.fire("¡Venta registrada!", "El pedido se guardó en el historial.", "success");
+        }
+    });
+});
+
+function renderizarHistorial() {
+    if (historialVentas.length === 0) return;
+    
+    contenedorHistorial.innerHTML = "";
+    historialVentas.forEach((venta, i) => {
+        contenedorHistorial.innerHTML += `
+            <div class="border-bottom mb-2">
+                <small class="text-muted">${venta.hora}</small>
+                <p>Venta #${i + 1} - Total: $${totalPedidoTxt.innerText}</p>
+            </div>
+        `;
+    });
+}
 
 document.getElementById("timeDate").textContent = fechaLegible;
 
-Swal.fire({
-  title: "<strong>HTML <u>example</u></strong>",
-  icon: "info",
-  html: `
-    You can use <b>bold text</b>,
-    <a href="#" autofocus>links</a>,
-    and other HTML tags
-  `,
-  showCloseButton: true,
-  showCancelButton: true,
-  focusConfirm: false,
-  confirmButtonText: `
-    <i class="fa fa-thumbs-up"></i> Great!
-  `,
-  confirmButtonAriaLabel: "Thumbs up, great!",
-  cancelButtonText: `
-    <i class="fa fa-thumbs-down"></i>
-  `,
-  cancelButtonAriaLabel: "Thumbs down"
-});
+// boton cierre de dia
+
+const btnCerrar = document.getElementById("btnCerrarDia");
+
+if (btnCerrar) {
+    btnCerrar.addEventListener("click", () => {
+        Swal.fire({
+            title: "¿Deseas cerrar el día?",
+            text: "Se guardará el resumen de ventas actual.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, cerrar caja",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire("¡Cerrado!", "El día ha sido finalizado con éxito.", "success");
+            }
+        });
+    });
+}

@@ -1,51 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./js/script.js" defer></script>
-    <link rel="stylesheet" href="./css/style.css">
-    <title>Heladeria el Reparto</title></head>
-<body>
-<header>
-<nav class="nav nav-pills flex-column flex-sm-row">
-  <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="#">Inicio</a>
-  <a class="flex-sm-fill text-sm-center nav-link" href="./page/addProduct.html">Agregar producto</a>
-  <a class="flex-sm-fill text-sm-center nav-link" href="./page/stock.html">Stock</a>
-  <p class="flex-sm-fill text-sm-center nav-link" id="timeDate"></p>
-</nav></header>
-<main>
-	<div class="container">
-	  <div class="gridIzq">
-	     <h2>Agregar Pedido</h2>
-	     <div class="agregarPedido">
-	<label for="products-select">Producto:</label>
-	<select id="products-select" name="productos">
-        <option value="" disabled selected>-- Elige una opción --</option>
-	</select>
-	<button>+</button>
-	  <div class="detallePedido">
-	      <p>1kg $15.000</p><br>
-         <p>1/2kg $8.500</p><br>
-         <p>1/4kg $5.300</p>
-	  </div>
-	</div>
-	  </div>
-      <div class="gridDer">
-         <h2>Historial</h2>
-         <div class="detallePedido">
-         <p>1kg $15.000</p><br>
-         <p>1/2kg $8.500</p><br>
-         <p>1/4kg $5.300</p>
-         </div>
-    </div>
-      <div class="buttonEnviar">
-         <button>Cerrar dia</button>
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Heladeria el Reparto</title>
+  </head>
+  <body>
+    <header>
+      <nav class="nav nav-pills flex-column flex-sm-row">
+        <a
+          class="flex-sm-fill text-sm-center nav-link active"
+          aria-current="page"
+          href="#"
+          >Inicio</a
+        >
+        <a
+          class="flex-sm-fill text-sm-center nav-link"
+          href="./page/addProduct.html"
+          >Agregar producto</a
+        >
+        <a class="flex-sm-fill text-sm-center nav-link" href="./page/stock.html"
+          >Stock</a
+        >
+        <p class="flex-sm-fill text-sm-center nav-link" id="timeDate"></p>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <div class="gridIzq">
+          <h2>Agregar Pedido</h2>
+          <div class="agregarPedido">
+            <label for="products-select">Producto:</label>
+            <select id="products-select" name="productos">
+              <option value="" disabled selected>-- Elige una opción --</option>
+            </select>
+            <button
+              id="btnAgregarProducto"
+              class="btn btn-sm btn-outline-primary"
+            >
+              +
+            </button>
+
+            <div class="detallePedido mt-3">
+              <h5>Pedido Actual:</h5>
+              <div id="listaPedidoActual"></div>
+              <p>
+                <strong>Total: $<span id="totalPedido">0</span></strong>
+              </p>
+              <div class="form-check mb-2">
+              <label class="deliveryCheckLabel" for="delivery"><strong>delivery</strong></label>
+              <input class="deliveryCheckInput" type="checkbox" name="delivery" id="delivery">
+              </div>
+              <button id="btnAceptarPedido" class="btn btn-success">
+                Aceptar y Cobrar
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="gridDer">
+          <h2>Historial del Día</h2>
+          <div id="historialVentas" class="detallePedido border p-2">
+            <p class="text-muted">No hay ventas registradas.</p>
+          </div>
+        </div>
+        <div class="text-center mt-5">
+          <button id="btnCerrarDia" class="btn btn-danger">Cerrar día</button>
+        </div>
       </div>
-	</div>
-</main>
-<footer></footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-</body>
+    </main>
+    <footer></footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
